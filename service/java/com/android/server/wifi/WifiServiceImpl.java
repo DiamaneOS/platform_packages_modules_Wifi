@@ -6815,7 +6815,13 @@ public class WifiServiceImpl extends IWifiManager.Stub {
     @Override
     public Network getCurrentNetwork() {
         if (!isSettingsOrSuw(Binder.getCallingPid(), Binder.getCallingUid())) {
-            throw new SecurityException(TAG + ": Permission denied");
+            // Read-only association for isolated radio observers. They already
+            // read connection identity without location permission; do not give
+            // them Settings' network configuration authority for this getter.
+            enforceAccessPermission();
+            if (!mWifiPermissionsUtil.checkScanWithoutLocationPermission(Binder.getCallingUid())) {
+                throw new SecurityException(TAG + ": Permission denied");
+            }
         }
         if (mVerboseLoggingEnabled) {
             mLog.info("getCurrentNetwork uid=%").c(Binder.getCallingUid()).flush();

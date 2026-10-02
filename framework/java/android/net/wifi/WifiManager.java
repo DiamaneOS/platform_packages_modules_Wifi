@@ -9180,13 +9180,16 @@ public class WifiManager {
 
     /**
      * Get {@link Network} object of current wifi network, or null if not connected.
+     * Radio observers may also use {@code RADIO_SCAN_WITHOUT_LOCATION} together
+     * with {@code ACCESS_WIFI_STATE}; this grants no network setting controls.
      * @hide
      */
     @Nullable
     @SystemApi
     @RequiresPermission(anyOf = {
             android.Manifest.permission.NETWORK_SETTINGS,
-            android.Manifest.permission.NETWORK_SETUP_WIZARD
+            android.Manifest.permission.NETWORK_SETUP_WIZARD,
+            android.Manifest.permission.RADIO_SCAN_WITHOUT_LOCATION
     })
     public Network getCurrentNetwork() {
         try {
