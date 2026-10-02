@@ -792,7 +792,7 @@ package android.net.wifi {
     method @NonNull public java.util.List<android.security.advancedprotection.AdvancedProtectionFeature> getAvailableAdvancedProtectionFeatures();
     method @FlaggedApi("com.android.wifi.flags.get_bssid_blocklist_api") @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.Manifest.permission.NETWORK_SETUP_WIZARD}) public void getBssidBlocklist(@NonNull java.util.List<android.net.wifi.WifiSsid>, @NonNull java.util.concurrent.Executor, @NonNull java.util.function.Consumer<java.util.List<android.net.MacAddress>>);
     method @Nullable @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.Manifest.permission.ACCESS_COARSE_LOCATION}) public String getCountryCode();
-    method @Nullable @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.Manifest.permission.NETWORK_SETUP_WIZARD}) public android.net.Network getCurrentNetwork();
+    method @Nullable @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.Manifest.permission.NETWORK_SETUP_WIZARD, android.Manifest.permission.RADIO_SCAN_WITHOUT_LOCATION}) public android.net.Network getCurrentNetwork();
     method public static int getEasyConnectMaxAllowedResponderDeviceInfoLength();
     method @NonNull @RequiresPermission(android.Manifest.permission.NETWORK_SETTINGS) public String[] getFactoryMacAddresses();
     method @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.Manifest.permission.NETWORK_STACK, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK}) public void getLastCallerInfoForApi(int, @NonNull java.util.concurrent.Executor, @NonNull java.util.function.BiConsumer<String, Boolean>);
