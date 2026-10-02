@@ -12321,6 +12321,38 @@ public class WifiServiceImplTest extends WifiBaseTest {
     }
 
     @Test
+    public void testGetCurrentNetworkWithRadioReadPermission() throws Exception {
+        when(mWifiPermissionsUtil.checkScanWithoutLocationPermission(anyInt())).thenReturn(true);
+        Network network = mock(Network.class);
+        when(mActiveModeWarden.getCurrentNetwork()).thenReturn(network);
+        assertEquals(network, mWifiServiceImpl.getCurrentNetwork());
+        verify(mContext).enforceCallingOrSelfPermission(eq(ACCESS_WIFI_STATE), any());
+    }
+
+    @Test
+    public void testGetCurrentNetworkAccessWifiStateAloneDenied() throws Exception {
+        when(mWifiPermissionsUtil.checkScanWithoutLocationPermission(anyInt())).thenReturn(false);
+        assertThrows(SecurityException.class, () -> mWifiServiceImpl.getCurrentNetwork());
+        verify(mActiveModeWarden, never()).getCurrentNetwork();
+    }
+
+    @Test
+    public void testGetCurrentNetworkRadioReadWithoutWifiStateDenied() throws Exception {
+        when(mWifiPermissionsUtil.checkScanWithoutLocationPermission(anyInt())).thenReturn(true);
+        doThrow(SecurityException.class).when(mContext)
+                .enforceCallingOrSelfPermission(eq(ACCESS_WIFI_STATE), any());
+        assertThrows(SecurityException.class, () -> mWifiServiceImpl.getCurrentNetwork());
+        verify(mActiveModeWarden, never()).getCurrentNetwork();
+    }
+
+    @Test
+    public void testGetCurrentNetworkRadioReadDisconnected() throws Exception {
+        when(mWifiPermissionsUtil.checkScanWithoutLocationPermission(anyInt())).thenReturn(true);
+        when(mActiveModeWarden.getCurrentNetwork()).thenReturn(null);
+        assertNull(mWifiServiceImpl.getCurrentNetwork());
+    }
+
+    @Test
     public void testQueryLastConfiguredTetheredApPassphraseSinceBootExceptions() {
         // good inputs should result in no exceptions.
         IStringListener listener = mock(IStringListener.class);
