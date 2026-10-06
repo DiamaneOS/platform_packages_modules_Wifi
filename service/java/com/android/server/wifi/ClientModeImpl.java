@@ -4612,8 +4612,8 @@ public class ClientModeImpl extends StateMachine implements ClientMode {
                 mWifiNative.removeNetworkCachedDataIfNeeded(config.networkId, factoryMac);
                 mWifiMetrics.logStaEvent(mInterfaceName, StaEvent.TYPE_MAC_CHANGE, config);
             } else {
-                Log.e(getTag(), "Failed to set MAC address to " + "'"
-                        + factoryMac.toString() + "'");
+                // DiamaneOS: no hardware identifier in the log.
+                Log.e(getTag(), "Failed to set MAC address to the factory MAC address");
             }
         }
     }
@@ -8363,11 +8363,12 @@ public class ClientModeImpl extends StateMachine implements ClientMode {
             mSettingsConfigStore.put(isPrimary()
                             ? WIFI_STA_FACTORY_MAC_ADDRESS : SECONDARY_WIFI_STA_FACTORY_MAC_ADDRESS,
                     factoryMacAddress.toString());
+            // DiamaneOS: no hardware identifier in the log; the address stays
+            // available to callers with NETWORK_SETTINGS and in dumpsys wifi.
             Log.i(TAG, (isPrimary() ? "Primary" : "Secondary")
-                    + " factory MAC address stored in config store: " + factoryMacAddress);
+                    + " factory MAC address stored in config store");
         }
-        Log.i(TAG, (isPrimary() ? "Primary" : "Secondary")
-                + " factory MAC address retrieved: " + factoryMacAddress);
+        Log.i(TAG, (isPrimary() ? "Primary" : "Secondary") + " factory MAC address retrieved");
         return factoryMacAddress;
     }
 
