@@ -944,7 +944,8 @@ public class PasspointManager {
                 mAnqpRequestManager.requestANQPElements(bssid, anqpKey,
                         roamingConsortium.anqpOICount > 0, vsa.hsRelease);
             }
-            Log.d(TAG, "ANQP entry not found for: " + anqpKey);
+            // The key names the network (BSSID and SSID), which is location data.
+            Log.d(TAG, "ANQP entry not found");
             return allMatches;
         }
         boolean anyProviderUpdated = false;
