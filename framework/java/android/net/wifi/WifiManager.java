@@ -9181,7 +9181,7 @@ public class WifiManager {
     /**
      * Get {@link Network} object of current wifi network, or null if not connected.
      * Radio observers may also use {@code RADIO_SCAN_WITHOUT_LOCATION} together
-     * with {@code ACCESS_WIFI_STATE}; this grants no network setting controls.
+     * with {@code ACCESS_WIFI_STATE}. This grants no network setting controls.
      * @hide
      */
     @Nullable

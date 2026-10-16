@@ -6816,7 +6816,7 @@ public class WifiServiceImpl extends IWifiManager.Stub {
     public Network getCurrentNetwork() {
         if (!isSettingsOrSuw(Binder.getCallingPid(), Binder.getCallingUid())) {
             // Read-only association for isolated radio observers. They already
-            // read connection identity without location permission; do not give
+            // read connection identity without location permission. Do not give
             // them Settings' network configuration authority for this getter.
             enforceAccessPermission();
             if (!mWifiPermissionsUtil.checkScanWithoutLocationPermission(Binder.getCallingUid())) {

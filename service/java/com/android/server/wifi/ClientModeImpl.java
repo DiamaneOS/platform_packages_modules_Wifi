@@ -8363,7 +8363,7 @@ public class ClientModeImpl extends StateMachine implements ClientMode {
             mSettingsConfigStore.put(isPrimary()
                             ? WIFI_STA_FACTORY_MAC_ADDRESS : SECONDARY_WIFI_STA_FACTORY_MAC_ADDRESS,
                     factoryMacAddress.toString());
-            // DiamaneOS: no hardware identifier in the log; the address stays
+            // DiamaneOS: no hardware identifier in the log. The address stays
             // available to callers with NETWORK_SETTINGS and in dumpsys wifi.
             Log.i(TAG, (isPrimary() ? "Primary" : "Secondary")
                     + " factory MAC address stored in config store");
