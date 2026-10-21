@@ -23,6 +23,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
 import android.net.wifi.WifiContext;
 import android.provider.Settings;
 
@@ -230,10 +231,9 @@ public class WifiSettingsStore {
         String settingsPackage = mFrameworkFacade.getSettingsPackageName(mContext);
         if (settingsPackage == null) return;
 
-        // DiamaneOS: Wi-Fi settings, where it can be turned off, not a Google help page.
-        Intent openLinkIntent = new Intent(Settings.ACTION_WIFI_SETTINGS)
-                .setPackage(settingsPackage)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Intent openLinkIntent = new Intent(Intent.ACTION_VIEW)
+                .setData(Uri.parse(mApmEnhancementHelpLink))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent tapPendingIntent = mFrameworkFacade.getActivity(mContext, 0, openLinkIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
